@@ -1,6 +1,67 @@
 import streamlit as st
 
+def _render_result(result: dict, word_count: int):
+    label      = result["label"]
+    ai_prob    = result["ai_prob"]
+    human_prob = result["human_prob"]
+    confidence = result["confidence"]
+ 
+    is_ai    = label == "AI Generated"
+    box_cls  = "ai" if is_ai else "human"
+    verdict  = "AI Generated" if is_ai else "Human Written"
+ 
+    ai_pct    = round(ai_prob    * 100, 1)
+    human_pct = round(human_prob * 100, 1)
+    conf_pct  = round(confidence * 100, 1)
+ 
+    # verdict & probablity bars
+    st.markdown(f"""
+        <div class="result-box {box_cls}">
+            <div class="result-verdict {box_cls}">{verdict}</div>
+            <div class="result-sub {box_cls}">Confidence · {conf_pct}%</div>
+            <div class="prob-row">
+                <div class="prob-label-row">
+                    <span class="prob-label">AI Generated</span>
+                    <span class="prob-pct">{ai_pct}%</span>
+                </div>
+                <div class="prob-track">
+                    <div class="prob-fill-ai" style="width:{ai_pct}%"></div>
+                </div>
+            </div>
+            <div class="prob-row">
+                <div class="prob-label-row">
+                    <span class="prob-label">Human Written</span>
+                    <span class="prob-pct">{human_pct}%</span>
+                </div>
+                <div class="prob-track">
+                    <div class="prob-fill-human" style="width:{human_pct}%"></div>
+                </div>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+ 
+    # metric row
+    m1, m2, m3 = st.columns(3)
+    with m1:
+        st.metric("AI Probability",    f"{ai_pct}%")
+    with m2:
+        st.metric("Human Probability", f"{human_pct}%")
+    with m3:
+        st.metric("Words Analysed",    word_count)
+ 
+    # confidence note
+    if confidence >= 0.90:
+        st.success("The model is very confident in this prediction.")
+    elif confidence >= 0.70:
+        st.warning("Moderate confidence: treat the result with some caution.")
+    else:
+        st.error("Low confidence: the essay may have mixed signals or is too short.")
+
 def show_predict_page():
+    
+    # header + instruction
     st.markdown('<div class="page-eyebrow">Detection Engine</div>', unsafe_allow_html=True)
     st.markdown('<div class="page-title">Analyse an Essay</div>', unsafe_allow_html=True)
     st.markdown("""
@@ -10,5 +71,51 @@ def show_predict_page():
         """,
         unsafe_allow_html=True
     )
+    st.markdown('<div class="accent-line"></div>', unsafe_allow_html=True)
     
     
+    # text input field
+    essay_input = st.text_area(
+        label="Essay Text",
+        placeholder="Paste your essay here…",
+        height=260,
+        label_visibility="collapsed",
+    )
+    
+    col_btn, col_hint = st.columns([1, 4])
+    with col_btn:
+        run = st.button("Analyse", use_container_width=True)
+    with col_hint:
+        st.caption("Minimum ~50 words recommended for reliable results.")
+ 
+    st.divider()
+    
+    if run:
+        # display warning when button is pressed but the text field is empty
+        if not essay_input.strip():
+            st.warning("Please paste some essay text before analysing.")
+            return
+ 
+        word_count = len(essay_input.split())
+ 
+        with st.spinner("Running inference…"):
+            try:
+                # display the result if there's no prob
+                from models.model_controller import predict
+                result = predict(essay_input)
+                _render_result(result, word_count)
+ 
+            # mock output for development fallback when there's problem with importing
+            except ImportError:
+                st.info("**Demo mode** — `model_controller.py` not found. Showing mock output.")
+                mock_result = {
+                    "label":      "AI Generated",
+                    "ai_prob":    0.912,
+                    "human_prob": 0.088,
+                    "confidence": 0.912,
+                }
+                _render_result(mock_result, word_count)
+ 
+            # for other error/exception
+            except Exception as e:
+                st.error(f"Prediction failed: {e}")

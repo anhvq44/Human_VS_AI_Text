@@ -1,10 +1,11 @@
 import json
+import pickle
 import numpy as np
 from tensorflow import keras
 from keras.preprocessing.sequence import pad_sequences
 
-MODEL_PATH = "alp_ver2.h5"
-TOKENIZER_PATH = "tokenizer.json"
+MODEL_PATH = "models/alp_ver2.h5"
+TOKENIZER_PATH = "models/tokenizer.pickle"
 MAX_LEN = 4405
 
 _model = None
@@ -22,8 +23,8 @@ def load_tokenizer():
     global _tokenizer
     
     if _tokenizer is None:
-        with open(TOKENIZER_PATH, "r") as file:
-            _tokenizer = json.load(file)
+        with open('models/tokenizer.pickle', 'rb') as handle:
+            _tokenizer = pickle.load(handle)
             
     return _tokenizer
 
@@ -47,9 +48,9 @@ def predict(text):
     confidence = ai_prob if ai_prob >= 0.5 else human_prob
     
     return {
-        "label":      label,
+        "label": label,
         "confidence": round(confidence, 4),
-        "ai_prob":    round(ai_prob, 4),
+        "ai_prob": round(ai_prob, 4),
         "human_prob": round(human_prob, 4),
     }
     

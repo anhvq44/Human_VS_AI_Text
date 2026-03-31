@@ -9,9 +9,11 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# set default page to home
 if "page" not in st.session_state:
     st.session_state.page = "Home"
 
+# style for all pages
 st.markdown(
     '''<style>
         @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap")
@@ -97,6 +99,117 @@ st.markdown(
             font-size: 0.8rem;
             line-height: 1.6;
         }
+        
+        /* arch blocks */
+        .arch-row{
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        .arch-block{
+            border: 1px solid white;
+            border-radius: 8px;
+            padding: 0.35rem 0.8rem;
+            font-family: 'DM Mono', monospace;
+            font-size: 0.7rem;
+            color: white;
+        }
+        .arch-arrow{
+            color: white;
+            font-size: 1rem;
+        }
+        
+        /* text area */
+        textarea{
+            background: #0e0e1a !important;
+            border: 1px solid #1c1c2e !important;
+            border-radius: 12px !important;
+            color: #d0d0e8 !important;
+            font-family: 'DM Sans', sans-serif !important; font-size: 0.9rem !important;
+        }
+        
+        /* probability bars */
+        .prob-row{
+            margin-bottom: 0.75rem;
+        }
+        .prob-label-row{
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.3rem
+        }
+        .prob-label{
+            font-family: 'DM Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.08em;
+            color: #8888aa;
+            text-transform: uppercase
+        }
+        .prob-pct{
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #e0e0f0
+        }
+        .prob-track{
+            height: 8px;
+            background: #1a1a2e;
+            border-radius: 4px;
+            overflow: hidden
+        }
+        .prob-fill-ai {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #7744cc, #cc55ff)
+        }
+        .prob-fill-human {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #228855, #44dd88)
+        }
+        
+        /* result box */
+        .result-box{
+            border-radius: 20px;
+            padding: 2rem 2.2rem;
+            margin: 1.5rem 0;
+            border: 1px solid transparent
+        }
+        .result-box.ai{
+            background: linear-gradient(135deg, #1a0a1e, #0f0a18);
+            border-color: #6633aa
+        }
+        .result-box.human{
+            background: linear-gradient(135deg, #091a12, #080f14);
+            border-color: #228855
+        }
+        .result-verdict{
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 2rem;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.2rem
+        }
+        .result-verdict.ai{
+            color: #cc77ff
+        }
+        .result-verdict.human{
+            color: #44dd88
+        }
+        .result-sub{
+            font-family: 'DM Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 1.4rem;
+        }
+        .result-sub.ai{
+            color: #8844bb
+        }
+        .result-sub.human{
+            color: #228855
+        }
     </style>''',
     unsafe_allow_html=True
 )
@@ -117,6 +230,7 @@ with st.sidebar:
         st.session_state.page = "Predict"
         st.rerun()
     
+
 if st.session_state.page == "Home":
     home()
 elif st.session_state.page == "Predict":
