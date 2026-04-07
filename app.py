@@ -109,24 +109,20 @@ st.markdown(
             margin-bottom: 1rem;
         }
         .arch-block{
-            border: 1px solid white;
+            border: 1px solid;
             border-radius: 8px;
             padding: 0.35rem 0.8rem;
             font-family: 'DM Mono', monospace;
             font-size: 0.7rem;
-            color: white;
         }
         .arch-arrow{
-            color: white;
             font-size: 1rem;
         }
         
         /* text area */
         textarea{
-            background: #0e0e1a !important;
-            border: 1px solid #1c1c2e !important;
+            border: 1px solid !important;
             border-radius: 12px !important;
-            color: #d0d0e8 !important;
             font-family: 'DM Sans', sans-serif !important; font-size: 0.9rem !important;
         }
         
@@ -143,18 +139,16 @@ st.markdown(
             font-family: 'DM Mono', monospace;
             font-size: 0.7rem;
             letter-spacing: 0.08em;
-            color: #8888aa;
             text-transform: uppercase
         }
         .prob-pct{
             font-family: 'Syne', sans-serif;
             font-weight: 700;
             font-size: 0.85rem;
-            color: #e0e0f0
         }
         .prob-track{
             height: 8px;
-            background: #1a1a2e;
+            border: 1px solid;
             border-radius: 4px;
             overflow: hidden
         }
@@ -177,11 +171,10 @@ st.markdown(
             border: 1px solid transparent
         }
         .result-box.ai{
-            background: linear-gradient(135deg, #1a0a1e, #0f0a18);
             border-color: #6633aa
         }
         .result-box.human{
-            background: linear-gradient(135deg, #091a12, #080f14);
+            
             border-color: #228855
         }
         .result-verdict{

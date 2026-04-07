@@ -8,7 +8,7 @@ def home():
     
     st.markdown("""
             <div class="page-subtitle">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id feugiat libero, eu placerat eros. Nullam et sem elementum, mattis neque vel, consectetur velit.
+                A deep learning classifier that distinguishes human-written essays from AI-generated essays using a Bidirectional LSTM architecture.
             </div>
         """,
         unsafe_allow_html=True
@@ -51,7 +51,7 @@ def home():
                 <div class="card">
                     <div class="card-title">Model Architecture</div>
                     <div class="card-body">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id feugiat libero, eu placerat eros. Nullam et sem elementum, mattis neque vel, consectetur velit. Nulla facilisi. Morbi ultricies massa erat, a consequat justo semper sit amet. Nullam ut libero sollicitudin, consequat nunc semper, sagittis urna. 
+                        Built with a stacked Bidirectional LSTM network. Each token is embedded into a dense vector, then passed through two BiLSTM layers that capture long-range dependencies in both directions, which is crucial for understanding writing style and coherence patterns.
                     </div>
                 </div>
             """,
@@ -64,8 +64,7 @@ def home():
                 <div class="card">
                     <div class="card-title">Training Data</div>
                     <div class="card-body">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id feugiat libero, eu placerat eros. Nullam et sem elementum, mattis neque vel, consectetur velit. Nulla facilisi. Morbi ultricies massa erat, a consequat justo semper sit amet. Nullam ut libero sollicitudin, consequat nunc semper, sagittis urna. 
-                    </div>
+                        Trained on a balanced Kaggle dataset of 2750 essays, split equally between human-written and AI-generated text. The dataset was shuffled and split 80/20 for training and testing, with an additional 20% validation fold used during training.
                 </div>
             """,
             unsafe_allow_html=True
@@ -76,8 +75,7 @@ def home():
                 <div class="card">
                     <div class="card-title">Training Setup</div>
                     <div class="card-body">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id feugiat libero, eu placerat eros. Nullam et sem elementum, mattis neque vel, consectetur velit. Nulla facilisi. Morbi ultricies massa erat, a consequat justo semper sit amet. Nullam ut libero sollicitudin, consequat nunc semper, sagittis urna. 
-                    </div>
+                        Optimised with Adam and binary cross-entropy loss. Dropout layers (0.4 and 0.3) to prevent overfitting. Early stopping with patience = 3 monitors validation loss and restores the best weights automatically. Trained for up to 20 epochs with a batch size of 32.
                 </div>
             """,
             unsafe_allow_html=True
@@ -89,7 +87,7 @@ def home():
                 <div class="card">
                     <div class="card-title">Limitations</div>
                     <div class="card-body">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id feugiat libero, eu placerat eros. Nullam et sem elementum, mattis neque vel, consectetur velit. Nulla facilisi. Morbi ultricies massa erat, a consequat justo semper sit amet. Nullam ut libero sollicitudin, consequat nunc semper, sagittis urna. 
+                        The model was trained on a relatively small dataset, which may affect generalisation to very short texts or specialised writing styles. Confidence scores are probabilistic, with a high score indicates a strong signal, not a guarantee. Always treat results as a decision-support tool.
                     </div>
                 </div>
             """,

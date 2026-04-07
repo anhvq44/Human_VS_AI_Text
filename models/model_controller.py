@@ -1,10 +1,9 @@
-import json
 import pickle
 import numpy as np
 from tensorflow import keras
 from keras.preprocessing.sequence import pad_sequences
 
-MODEL_PATH = "models/alp_ver2.h5"
+MODEL_PATH = "models/alp.h5"
 TOKENIZER_PATH = "models/tokenizer.pickle"
 MAX_LEN = 4405
 
