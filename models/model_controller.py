@@ -1,6 +1,6 @@
 import pickle
 import numpy as np
-from tensorflow import keras
+from keras import models
 from keras.preprocessing.sequence import pad_sequences
 
 MODEL_PATH = "models/alp.h5"
@@ -14,7 +14,7 @@ def load_model():
     global _model
     
     if _model is None:
-        _model = keras.models.load_model(MODEL_PATH)
+        _model = models.load_model(MODEL_PATH)
  
     return _model
 
