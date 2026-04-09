@@ -1,5 +1,4 @@
 import pickle
-import numpy as np
 from keras import models
 from keras.preprocessing.sequence import pad_sequences
 
