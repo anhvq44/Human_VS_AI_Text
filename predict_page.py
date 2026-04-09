@@ -1,4 +1,5 @@
 import streamlit as st
+from models.model_controller import predict
 
 def _render_result(result: dict, word_count: int):
     label      = result["label"]
@@ -101,7 +102,6 @@ def show_predict_page():
         with st.spinner("Running inference…"):
             try:
                 # display the result if there's no prob
-                from models.model_controller import predict
                 result = predict(essay_input)
                 _render_result(result, word_count)
  
