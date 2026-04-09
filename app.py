@@ -84,7 +84,7 @@ st.markdown(
         
         /* card */
         .card{
-            border: 1px solid white;
+            border: 1px solid;
             border-radius: 16px;
             padding: 1.6rem 1.8rem;
             margin-bottom: 1rem'
